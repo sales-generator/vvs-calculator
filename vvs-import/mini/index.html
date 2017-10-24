@@ -1,0 +1,401 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>Подбор товара для импортозамещения (alpha 1.0.12)</title>
+<link href='css/reset.css' rel='stylesheet' type='text/css'>
+<style type="text/css">
+body {
+	margin: 0px auto;
+	/*width: 274px;*/
+	height:  239px;
+	/*background-color: black;*/
+	font-family: Gotham, "Helvetica Neue", Helvetica, Arial, sans-serif;
+	font-size: 10px;
+	/*line-height: normal;*/
+	overflow: hidden;
+	background-color: #ecf0f1;
+}
+a {
+	color: #ecf0f1;
+	text-decoration: underline;
+}
+p {
+	margin: 5px;
+}
+#wrapper {
+	margin: 0px auto;
+	width: 224px;
+	height: 239px;
+	background-color: #ecf0f1;
+	color: #2c3e50;
+	/*position: absolute;*/
+}
+.head {
+	background-color: #3498db;
+	color: #ecf0f1;
+	font-size: 120%;
+	text-align: left;
+}
+.head-text {
+	padding: 3px 10px 3px 75px;
+	background-image: url(img/vvs-logo.png);
+	background-repeat: no-repeat;
+	background-position: 14px 50%;
+	background-size: 50px;
+}
+.block {
+	margin: 1px 8px;
+}
+.tnved {
+	float: right;
+	width: 30%;
+	min-width: 50px;
+}
+.input {
+	height: 16px;
+	text-align: center;
+	font-size: 120%;
+	border: 2px solid #3498db;
+}
+.help {
+	/*margin: 2px 0px 0px 105px;*/
+	/*padding: 3px;*/
+	text-align: right;
+	text-decoration: underline;
+	cursor: pointer;
+	/*float: right;*/
+	bottom: 7px;
+	position: relative;
+}
+.block-label {
+	text-align: center;
+	margin: 0px 0px 2px 0px;
+}
+input[type="radio"]{
+	display: none;
+}
+.company-label{
+	display: block;
+}
+input[type="radio"]:checked+label{
+	background: #2ecc71;
+}
+input[type="radio"]{
+	padding: 4px 18px;
+}
+.button {
+	cursor: pointer;
+	color: #ecf0f1;
+	text-align: center;
+	font-size: 110%;
+	padding: 4px 12px;
+	background-color: #3498db;
+  transition: background-color .25s;
+}
+.button:hover {
+	background-color: #2980b9;
+}
+.button:active {
+	background-color: #2ecc71;
+}
+.mail {
+	width: calc(100% - 6px);
+	margin-bottom: 2px;
+}
+.window {
+	width: 224px;
+	height: 172px;
+	margin: 0px;
+	padding: 10px;
+	color: #ecf0f1;
+	position: absolute;
+	top: 0px;
+	box-shadow: 0px 0px 500px #2c3e50;
+}
+.info {
+	background-color: #3498db;
+}
+.info-button {
+	background-color: #2980b9;
+}
+.error {
+	background-color: #e74c3c;
+}
+.error-button {
+	background-color: #c0392b;
+}
+.sucess {
+	background-color: #2ecc71;
+}
+.sucess-button {
+	background-color: #27ae60;
+}
+.window-heading {
+	font-size: 120%;
+	margin-bottom: 15px;
+}
+.window-text {
+	text-indent: 25px;
+	width: 200px;
+}
+.window-control {
+	height: 20px;
+	width: 90%;/*calc(100% - 20px);*/
+	/*margin-bottom: 5px;*/
+	text-align: center;
+	line-height: 20px;
+	cursor: pointer;
+	/*position: absolute;
+	bottom: 5px;*/
+}
+.hidden {
+	display: none;
+}
+#step-button {
+	padding: 8px 5px;
+}
+.window-phone {
+	text-align: center;
+	font-size: 120%;
+	text-indent: 0;
+}
+</style>
+</head>
+
+<body>
+	<!--обертка-->
+	<div id="wrapper">
+		<!--шапка-->
+		<div class="head">
+			<div class="head-text">ПОДБОР ТОВАРА,<br>для импортозамещения</div>
+		</div>
+		<!--тело-->
+		<div class="main">
+			<form id="vvs-import" action="" method="post">
+
+				<div class="block" style="height: 40px;">
+					<input class="tnved input" type="text" name="tnved-search" id="tnved-search" value="" placeholder="••••">
+					<label class="tnved-label" for="label-tnved" style="font-size: 11px;">Введите позицию ТН ВЭД товара, производимого вами</label>
+					<div class="help" onclick="$('#window-info').fadeIn(500);">Помощь по ТН ВЭД</div>
+				</div>
+
+				<div class="block" style="height: 40px;">
+					<div class="block-label">Выберите категорию вашего бизнеса</div>
+
+					<input type="radio" name="company-size" id="small-medium" value="Маленькая или средняя">
+					<label class="company-label button" style="float: left;" for="small-medium">Малый \ Средний</label>
+
+					<input type="radio" name="company-size" id="big" value="Крупная">
+					<label class="company-label button" style="float: right;" for="big">Крупный</label>
+				</div>
+
+				<div id="step" class="block">
+					<div id="step-button" class="button">Получите название товара, оптимального для импортозамещения вашим предприятием</div>
+				</div>
+
+				<div id="next" class="block hidden">
+					<div class="block-label">Укажите email адрес,</div>
+					<input id="email" class="mail input"type="text" name="email" value="" placeholder="куда будут высланы результаты.">
+					<div id="complete" class="button" style="padding: 2px 4px;">Получите результат подбора товара</div>
+				</div>
+
+			</form>
+		</div>
+		<!--ошибка ввода тн вэд-->
+		<div id="tnved-error" class="hidden">
+			<div style=" background-color: #e74c3c; position: absolute; top: 32px; left: 0px; text-align: center; color: #ecf0f1; padding: 3px 14px; width: 120px;">Позиция состоит строго из 4 цифр!</div>
+		</div>
+		<!--ошибка выбора компании-->
+		<div id="company-error" class="hidden">
+			<div style="background-color: #e74c3c; position: absolute; top: 76px; left: 0px; text-align: center; color: #ecf0f1; padding: 3px 0px; width: 100%;">Необходимо выбрать размер компании!</div>
+	  </div>
+		<!--ошибка ввода мыла-->
+		<div id="mail-error" class="hidden">
+			<div style="background-color: #e74c3c; position: absolute; top: 106px; left: 0px; text-align: center; color: #ecf0f1; padding: 3px 0px; width: 100%;">Необходимо ввести корректный адрес электронной почты!</div>
+	  </div>
+		<!--окно помощи-->
+		<div id="window-info" class="window info hidden">
+			<div class="window-heading">Помощь</div>
+			<div class="window-text">
+				<p>Позиция ТН ВЭД представляет собой первые четыре цифры самого кода.</p>
+				<p>Для поиска позиции ТН ВЭД воспользуйтесь <a href="http://www.alta.ru/tik/" target="_blank">онлайн-сервисом</a>.</p>
+		    </div>
+			<div class="window-control info-button" onclick="$('#window-info').fadeOut(500);">Закрыть</div>
+		</div>
+		<!--окно ошибки-->
+		<div id="window-error" class="window error hidden">
+			<div class="window-heading">Ошибка</div>
+			<div class="window-text">
+				<p>В рамках Вашей товарной позиции по итогу 4 квартала 2016 года нет импортных товаров, на которые существует устойчивый спрос. Введите иную позицию или запросите поиск товара в нашей компании по телефону</p>
+				<p class="window-phone">8 800 555 3420</p>
+		    </div>
+			<div class="window-control error-button" onclick="$('#window-error').fadeOut(500);">Закрыть</div>
+		</div>
+		<!--окно выполнения-->
+		<div id="window-sucess" class="window sucess hidden">
+			<div class="window-heading" style="margin-bottom: 0px;">Успешно</div>
+			<div class="window-text">
+				<p>В течение нескольких минут на Ваш адрес придет результат. Не забудьте проверить папку спам.</p>
+				<p>Если по истечении 10 минут вы по-прежнему не получили письмо - пожалуйста, дайте нам об этом знать по телефону</p>
+				<p class="window-phone">8 800 555 3420</p>
+		    </div>
+			<div class="window-control sucess-button" onclick="$('#window-sucess').fadeOut(500); location.reload();">Закрыть</div>
+		</div>
+	</div>
+<!-- Google-->
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-51665687-1', 'vvs-info.ru');
+  ga('require', 'displayfeatures');
+  ga('send', 'pageview');
+
+</script>
+<!-- Google end -->
+<!-- Yandex -->
+<script type="text/javascript">
+(function (d, w, c) {
+    (w[c] = w[c] || []).push(function() {
+        try {
+            w.yaCounter25189487 = new Ya.Metrika({id:25189487,
+                    webvisor:true,
+                    clickmap:true,
+                    trackLinks:true,
+                    accurateTrackBounce:true});
+        } catch(e) { }
+    });
+
+    var n = d.getElementsByTagName("script")[0],
+        s = d.createElement("script"),
+        f = function () { n.parentNode.insertBefore(s, n); };
+    s.type = "text/javascript";
+    s.async = true;
+    s.src = (d.location.protocol == "https:" ? "https:" : "http:") + "//mc.yandex.ru/metrika/watch.js";
+
+    if (w.opera == "[object Opera]") {
+        d.addEventListener("DOMContentLoaded", f, false);
+    } else { f(); }
+})(document, window, "yandex_metrika_callbacks");
+</script>
+<noscript><div><img src="//mc.yandex.ru/watch/25189487" style="position:absolute; left:-9999px;" alt="" /></div></noscript>
+<!-- Yandex end -->
+</body>
+</html>
+<script src="//code.jquery.com/jquery-1.12.0.min.js"></script>
+<script src="//code.jquery.com/jquery-migrate-1.2.1.min.js"></script>
+<script>
+//скрипт только чисел для поля
+  document.getElementById("tnved-search").onkeypress = function(e) {
+
+    e = e || event;
+
+    if (e.ctrlKey || e.altKey || e.metaKey) return;
+
+    var chr = getChar(e);
+
+    // с null надо осторожно в неравенствах, т.к. например null >= '0' => true!
+    // на всякий случай лучше вынести проверку chr == null отдельно
+    if (chr == null) return;
+
+    if (chr < '0' || chr > '9') {
+      return false;
+    }
+
+  }
+
+  function getChar(event) {
+    if (event.which == null) {
+      if (event.keyCode < 32) return null;
+      return String.fromCharCode(event.keyCode) // IE
+    }
+
+    if (event.which != 0 && event.charCode != 0) {
+      if (event.which < 32) return null;
+      return String.fromCharCode(event.which) // остальные
+    }
+
+    return null; // специальная клавиша
+  }
+//скрипт только чисел для поля
+</script>
+<script>
+//Обработчик формы с проверкой
+  $('#step-button').click(function(e){ //обработка формы для ее проверки и отправки
+    e.preventDefault(); //блокируем оригинальную возможность отправки
+    var error = false; //присваиваем переменной ошибок чистый статус
+
+    var tnvedpos_check = $('#tnved-search').val(); //присваиваем переменную полю поиска
+
+    if(tnvedpos_check.length < 4){ //обработка менее 4 знаков
+      var error = true;
+      $('#tnved-error').fadeIn(500);
+    }else if (tnvedpos_check.length > 4){ //обработка более 4 знаков
+      var error = true;
+      $('#tnved-error').fadeIn(500);
+    }else { //обработка все хорошо
+      $('#tnved-error').fadeOut(500); // прячем ошибку
+    };
+
+    var radio_check_smamed = $("#small-medium").prop("checked");
+		var radio_check_big = $("#big").prop("checked");
+
+    if(radio_check_smamed == true){
+			$('#company-error').fadeOut(500);
+    }else {
+      if (radio_check_big == true) {
+      	$('#company-error').fadeOut(500);
+      }else {
+				var error = true;
+				$('#company-error').fadeIn(500);
+      }
+    };
+
+    if(error == false){ // если все без ошибок продолжаем
+      //$.post("php/check.php", $("#vvs-import").serialize(),function(result){ //формируем POST запрос
+        //if(result == 'yes'){ //при получении положительного ответа показываем дальнейшие шаги
+          //$('#window-error').fadeOut(500);
+					$('#step').fadeOut(500);
+          setTimeout("$('#next').fadeIn(500)",500); // показываем поле для email и кнопку финальной отправки
+        //}else{ // выводим ошибку не найдено
+          //$('#window-error').fadeIn(500);
+        //}
+      //});
+    }
+  });
+//Обработчик формы с проверкой
+</script>
+<script>
+//Обработчик всей формы
+  $('#complete').click(function(e){ //обработка формы для ее проверки и отправки
+    e.preventDefault(); //блокируем оригинальную возможность отправки
+    var error = false; //присваиваем переменной ошибок чистый статус
+		var email_input = $('#email').val();
+
+		if(email_input.length < 5){
+			var error = true;
+			$('#mail-error').fadeIn(500);
+			//Ошибко
+		}else {
+			$('#mail-error').fadeOut(500);
+			//нет ошибко
+		}
+
+    if(error == false){ // если все без ошибок продолжаем
+      $.post("php/search.php", $("#vvs-import").serialize(),function(result){ //формируем POST запрос
+        if(result == 'yes'){ //при получении положительного ответа показываем дальнейшие шаги
+          //да
+					$('#window-sucess').fadeIn(500);
+        }else{ // выводим ошибку не найдено
+          //нет
+					//$('#all-failure').fadeIn(500);
+					$('#window-error').fadeIn(500);
+        }
+      });
+    }
+  });
+//Обработчик всей формы
+</script>
