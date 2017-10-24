@@ -191,7 +191,7 @@ a[x-apple-data-detectors=true] {
                   
 <div style="Margin-right: 10px; Margin-left: 10px;">
   <div style="line-height: 10px; font-size: 1px">&nbsp;</div>
-	<div style="font-size:12px;line-height:14px;color:#555555;font-family:\'Open Sans\', \'Helvetica Neue\', Helvetica, Arial, sans-serif;text-align:left;"><p style="margin: 0;font-size: 12px;line-height: 14px"><span style="font-size: 16px; line-height: 19px;">Мы сравнили объёмы товаров по Вашему коду ТН ВЭД за 1 квартал текущего и прошлого года.</span></p></div>
+	<div style="font-size:12px;line-height:14px;color:#555555;font-family:\'Open Sans\', \'Helvetica Neue\', Helvetica, Arial, sans-serif;text-align:left;"><p style="margin: 0;font-size: 12px;line-height: 14px"><span style="font-size: 16px; line-height: 19px;">Мы сравнили объёмы товаров по Вашему коду ТН ВЭД за 2 квартал текущего и прошлого года.</span></p></div>
 
   <div style="line-height: 10px; font-size: 1px">&nbsp;</div>
 </div>
